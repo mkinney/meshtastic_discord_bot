@@ -14,23 +14,6 @@ discord_help_token = os.environ['HELP_BOT_TOKEN']
 client = Bot(command_prefix=BOT_PREFIX)
 
 
-@client.command(name='8ball',
-                description="Answers a yes/no question.",
-                brief="Answers from the beyond.",
-                aliases=['eight_ball', 'eightball', '8-ball'],
-                pass_context=True)
-async def eight_ball(context):
-    """eight ball simulator"""
-    possible_responses = [
-        'That is a resounding no',
-        'It is not looking likely',
-        'Too hard to tell',
-        'It is quite possible',
-        'Definitely',
-    ]
-    await context.channel.send(random.choice(possible_responses) + ", " + context.message.author.mention)
-
-
 @client.event
 async def on_message(message):
 
@@ -67,6 +50,7 @@ async def on_message(message):
         msg = '''
 !hello - replies with 'hello <username>'
 !help - this page
+!gs - show getting started page
 !esp - show esp flashing page
 !nrf - show nrf flashing page
 !ant - show antenna page
