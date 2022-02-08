@@ -9,7 +9,7 @@ from discord.ext.commands import Bot
 
 BOT_PREFIX = ("!")
 
-discord_help_token = os.environ['DISCORD_HELP_TOKEN']
+discord_help_token = os.environ['HELP_BOT_TOKEN']
 
 client = Bot(command_prefix=BOT_PREFIX)
 
@@ -32,6 +32,49 @@ async def eight_ball(context):
 
 
 @client.event
+async def on_message(message):
+
+    # Do not want the bot to reply to itself
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('!hello'):
+        msg = 'Hello {0.author.mention}'.format(message)
+        await message.channel.send(msg)
+
+    if message.content.startswith('!gs'):
+        msg = 'https://meshtastic.org/docs/getting-started'
+        await message.channel.send(msg)
+        # get the user's requested message and delete it
+        await message.delete()
+
+    if message.content.startswith('!esp'):
+        msg = 'https://meshtastic.org/docs/getting-started/flashing-esp32'
+        await message.channel.send(msg)
+        await message.delete()
+
+    if message.content.startswith('!nrf'):
+        msg = 'https://meshtastic.org/docs/getting-started/flashing-nrf52'
+        await message.channel.send(msg)
+        await message.delete()
+
+    if message.content.startswith('!ant'):
+        msg = 'https://meshtastic.org/docs/hardware/antenna'
+        await message.channel.send(msg)
+        await message.delete()
+
+    if message.content.startswith('!help'):
+        msg = '''
+!hello - replies with 'hello <username>'
+!help - this page
+!esp - show esp flashing page
+!nrf - show nrf flashing page
+!ant - show antenna page
+'''
+        await message.channel.send(msg)
+
+
+@client.event
 async def on_ready():
     """on_ready"""
     game=Game(name="with humans")
@@ -39,15 +82,4 @@ async def on_ready():
     print("Logged in as " + client.user.name)
 
 
-async def list_servers():
-    """list_servers"""
-    await client.wait_until_ready()
-    while not client.is_closed:
-        print("Current servers:")
-        for server in client.servers:
-            print(server.name)
-        await asyncio.sleep(600)
-
-
-client.loop.create_task(list_servers())
 client.run(discord_help_token)

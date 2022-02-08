@@ -8,7 +8,7 @@ bot for the Meshtastic discord group
 * sudo to user it runs under
 * change to the directory
 * git pull
-* systemctl start discord_hello.service
+* systemctl restart help_bot.service
 
 # Background
 Used https://github.com/mkinney/discord_hello_bot as a starting point
