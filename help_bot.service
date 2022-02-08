@@ -1,0 +1,12 @@
+[Unit]
+Description=Discord Help Bot
+
+[Service]
+Type=simple
+User=dbots
+Restart=always
+WorkingDirectory=/home/dbots/meshtastic_discord_bot
+ExecStart=/home/dbots/meshtastic_discord_bot/help_bot.bash
+
+[Install]
+WantedBy=multi-user.target
